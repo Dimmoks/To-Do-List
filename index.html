@@ -15,31 +15,51 @@
         <div class="prewiew-text">
             Твої нотатки 
         </div>
-        <div class="block-note">
-            <div class="text-note">
-                Note one
-            </div>
-            <button class="del-note">
-                ✖
-            </button>
-        </div>
-        <div class="block-note">
-            <div class="text-note">
-                Note two
-            </div>
-            <button class="del-note">
-                ✖
-            </button>
+        <div class="section blocktodolist" id="todolist">
         </div>
         <div class="add-block">
-            <input class="input-add" type="text" placeholder="Введіть текст">
-            <button class="button-add">
+            <input class="input-add" id="addinput" type="text" placeholder="Введіть текст">
+            <button class="button-add" onclick="sumbitButtonClickHandler()">
                 Додати
             </button>
         </div>
     </div>
-</body>
 
-<script src="codejjs/code.js"></script>
+    <script>
+        function sumbitButtonClickHandler() {
+            const addinput = document.getElementById('addinput');
+
+            const tasktext = addinput.value;
+
+            if (!tasktext) {
+                return;
+            }
+
+            const blocknote = document.createElement('div');
+            blocknote.className = 'blocknote';
+
+            const taskName = document.createElement('div');
+            taskName.innerText = tasktext;
+            taskName.className = 'text-note';
+            blocknote.appendChild(taskName);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.innerText = '✖';
+            deleteButton.className = 'delnote';
+            deleteButton.addEventListener('click', () => {
+                const todolist = document.getElementById('todolist');
+
+                todolist.removeChild(event.target.parentElement);
+            });
+            blocknote.appendChild(deleteButton);
+
+            const todolist = document.getElementById('todolist');
+            todolist.appendChild(blocknote);
+
+            addinput.innerText = '';
+        }
+    </script>
+
+</body>
 
 </html>
